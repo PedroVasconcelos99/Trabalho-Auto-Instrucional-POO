@@ -1,11 +1,11 @@
 package enemies;
 
 public class Inimigos {
-	private int vida;
-	private int atk;
-	private int def;
+	protected int vida;
+	protected int atk;
+	protected int def;
 	
-	public Inimigos() {
+	public Inimigos(int vida, int atk,int def) {
 		
 	}
 
@@ -32,6 +32,8 @@ public class Inimigos {
 	public void setDef(int def) {
 		this.def = def;
 	}
+	
+	
 	
 	
 }

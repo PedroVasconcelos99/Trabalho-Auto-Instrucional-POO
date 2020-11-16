@@ -1,9 +1,9 @@
 package heroes;
 
 public class Heroi {	
-	private int vida;
-	private int atk;
-	private int def;
+	protected int vida;
+	protected int atk;
+	protected int def;
 	
 	public Heroi(int atk,int def, int vida) {
 		this.atk = atk;
