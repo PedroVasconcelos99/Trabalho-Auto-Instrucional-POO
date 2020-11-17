@@ -10,35 +10,49 @@ public class MenuBatalha {
 	GuerreiroEsqueleto ge = new GuerreiroEsqueleto(300, 10, 5);
 	Cavaleiro kg = new Cavaleiro(20, 30, 400);
 	CalcularDano cd = new CalcularDano();
+	ChecarAcerto ca = new ChecarAcerto();
 	
-	Inimigos arrInimigos[] = {ge};
+	Inimigos arrInimigos[] = {ge,ge};
 	
 	
 	public void menuBatalha() {
 		
+		
 		do {
-			
-			int opcao;
-			System.out.println("Guerreiro esqueleto\nHP" + ge.getVida());
-			System.out.println("Cavaleiro\nHP" + kg.getVida());
-			System.out.println("1-atacar\n2-itens\n3-satus");
-			opcao = leia.nextInt();
-			
-			switch (opcao) {
-			case 1: {
-				int op;
-				System.out.println("escolha um inimigo\n1-" + arrInimigos[0]);
-				op = leia.nextInt();
-				ge.setVida(arrInimigos[op-1].getVida() - cd.calculoDano(kg.getAtk(), arrInimigos[op-1].getDef()));
-				kg.setVida(kg.getVida() - ge.getAtk());
-				break;
-			}
-			
-			default:
-				throw new IllegalArgumentException("valor invalido: " + opcao);
-			}
+			batalha();
+		} while (ge.getVida() != 0|| kg.getVida() == 0);
 		
-		} while (ge.getVida() != 0);
+	}
+	
+	
+	void batalha() {
+		int opcao;
+		System.out.println("Guerreiro esqueleto\nHP" + arrInimigos[0].getVida());
+		System.out.println("Guerreiro esqueleto\nHP" + arrInimigos[1].getVida());
+		System.out.println("Cavaleiro\nHP" + kg.getVida());
+		System.out.println("1-atacar\n2-itens\n3-satus");
+		opcao = leia.nextInt();
 		
+		switch (opcao) {
+		case 1: {
+			int op;
+			System.out.println("escolha um inimigo\n1-" + arrInimigos[0]+"\n2-" + arrInimigos[1]);
+			op = leia.nextInt();
+			if (ca.check() ==1) {
+				System.out.println("errou");
+			} else if(ca.check()==2) {
+				ge.setVida(arrInimigos[op-1].getVida() - cd.calculoDano(kg.getAtk(), arrInimigos[op-1].getDef()));				
+			} else {
+				ge.setVida(arrInimigos[op-1].getVida() - cd.calculoDano(kg.getAtk()*2, arrInimigos[op-1].getDef()));
+			}
+			kg.setVida(kg.getVida() - ge.getAtk());
+			break;
+		}
+		
+		default:
+			throw new IllegalArgumentException("valor invalido: " + opcao);
+		}
+	
+	
 	}
 }
