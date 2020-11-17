@@ -7,8 +7,8 @@ import utilities.*;
 
 public class MenuBatalha {
 	Scanner leia = new Scanner(System.in);
-	GuerreiroEsqueleto ge = new GuerreiroEsqueleto(300, 10, 5);
-	Cavaleiro kg = new Cavaleiro(20, 30, 400);
+	GuerreiroEsqueleto ge = new GuerreiroEsqueleto();
+	Cavaleiro kg = new Cavaleiro();
 	CalcularDano cd = new CalcularDano();
 	ChecarAcerto ca = new ChecarAcerto();
 	
@@ -36,7 +36,7 @@ public class MenuBatalha {
 		switch (opcao) {
 		case 1: {
 			int op;
-			System.out.println("escolha um inimigo\n1-" + arrInimigos[0]+"\n2-" + arrInimigos[1]);
+			System.out.println("escolha um inimigo\n1-" + arrInimigos[0].getNome()+"\n2-" + arrInimigos[1].getNome());
 			op = leia.nextInt();
 			if (ca.check() ==1) {
 				System.out.println("errou");

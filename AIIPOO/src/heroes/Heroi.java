@@ -5,10 +5,7 @@ public class Heroi {
 	protected int atk;
 	protected int def;
 	
-	public Heroi(int atk,int def, int vida) {
-		this.atk = atk;
-		this.def = def;
-		this.vida = vida;
+	public Heroi() {
 	}
 
 	public int getVida() {
