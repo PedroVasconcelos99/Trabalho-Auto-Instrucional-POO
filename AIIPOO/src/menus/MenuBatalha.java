@@ -57,14 +57,11 @@ public class MenuBatalha {
 		op = leia.nextInt();
 		//checa se o ataque do heroi acertou, caso tenha acertado reduz a vida do inimigo;
 		if (ca.check() ==1) {
-			System.out.println("NAT cavaleiro " + ca.check());
 			System.out.println("errou");
 		} else if(ca.check()==2) {
-			System.out.println("NAT cavaleiro " +ca.check());
 			System.out.println("DANO TOTAL cavaleiro" + cd.calculoDano(kg.getAtk(), arrAndar[andar][op-1].getDef()));
 			arrAndar[andar][0].setVida(arrAndar[andar][op-1].getVida() - cd.calculoDano(kg.getAtk(), arrAndar[andar][op-1].getDef()));				
 		} else if(ca.check() == 3) {
-			System.out.println("NAT cavaleiro " +ca.check());
 			System.out.println("acerto critico");
 			System.out.println("DANO TOTAL cavaleiro" +cd.calculoDano(kg.getAtk()*2, arrAndar[andar][op-1].getDef()));
 			arrAndar[andar][0].setVida(arrAndar[andar][op-1].getVida() - cd.calculoDano(kg.getAtk()*2, arrAndar[andar][op-1].getDef()));
@@ -76,14 +73,11 @@ public class MenuBatalha {
 			if (arrAndar[andar][i].getVida()>0) {
 				//verifica se o ataque inimigo acertou
 				if (ca.check() == 1) {
-					System.out.println("NAT inimigo" +ca.check());
 					System.out.println(arrAndar[andar][i].getNome() + " errou");
 				} else if(ca.check()==2) {
-					System.out.println("NAT inimigo" +ca.check());
 					System.out.println("DANO TOTAL inimigo " + cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
 					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
 				} else if(ca.check()==3) {
-					System.out.println("NAT inimigo" +ca.check());
 					System.out.println("acerto critico inimigo");
 					System.out.println("DANO TOTALinimigo " + cd.calculoDano(arrAndar[andar][i].getAtk()*2, kg.getDef()));
 					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
