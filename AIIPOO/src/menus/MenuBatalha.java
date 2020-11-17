@@ -26,9 +26,10 @@ public class MenuBatalha {
 		do {
 
 			int opcao;
-			System.out.println("Guerreiro esqueleto   Guerreiro esqueleto   Guerreiro esqueleto");
+			System.out.println("=============================================================================================");
+			System.out.println("Guerreiro esqueleto    Guerreiro esqueleto    Guerreiro esqueleto");
 			System.out.println("HP" + arrAndar[andar][0].getVida() + "			HP" +arrAndar[andar][1].getVida() + "			HP" +arrAndar[andar][2].getVida());
-//			System.out.println("Guerreiro esqueleto \nHP" + arrAndar[andar][1].getVida());
+			System.out.println("\nTOTAL" + totalVida());
 			System.out.println("\nCavaleiro\nHP" + kg.getVida());
 			System.out.println("\n1-atacar 2-itens 3-satus");
 			opcao = leia.nextInt();
@@ -45,13 +46,20 @@ public class MenuBatalha {
 		
 		
 		
-		} while (arrAndar[andar][0].getVida() != 0|| kg.getVida() == 0);
+		} while (totalVida() != 0|| kg.getVida() == 0);
 		
 	}
-	
+	int totalVida(){ 
+		int total = 0;
+		for (int i = 0; i < 3; i++) {
+			total += arrAndar[andar][i].getVida();
+		}
+		return total;
+	}
 	
 	void batalha() {
 		int op;
+		//imprime a escolha de inimigos para atacar
 		System.out.println("=============================================================================================");
 		System.out.println("escolha um inimigo\n1-" + arrAndar[andar][0].getNome()+"\n2-" + arrAndar[andar][0].getNome());
 		op = leia.nextInt();
@@ -82,8 +90,6 @@ public class MenuBatalha {
 					System.out.println("DANO TOTALinimigo " + cd.calculoDano(arrAndar[andar][i].getAtk()*2, kg.getDef()));
 					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
 				}
-			} else {
-				arrAndar[andar][i] = null;
 			}
 			
 		}
