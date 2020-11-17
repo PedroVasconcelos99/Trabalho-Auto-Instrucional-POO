@@ -68,17 +68,17 @@ public class MenuBatalha {
 		}
 		
 		//verificar se o inimigo morreu antes de executar uma ação
-		for (int i = 0; i < arrAndar.length; i++) {
-			System.out.println(arrAndar.length);
+		for (int i = 0; i < 3; i++) {
 			if (arrAndar[andar][i].getVida()>0) {
 				//verifica se o ataque inimigo acertou
 				if (ca.check() == 1) {
-					System.out.println(arrAndar[andar][i].getNome() + " errou");
+					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " errou");
 				} else if(ca.check()==2) {
+					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " acertou");
 					System.out.println("DANO TOTAL inimigo " + cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
 					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
 				} else if(ca.check()==3) {
-					System.out.println("acerto critico inimigo");
+					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " acerto critico ");
 					System.out.println("DANO TOTALinimigo " + cd.calculoDano(arrAndar[andar][i].getAtk()*2, kg.getDef()));
 					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
 				}
