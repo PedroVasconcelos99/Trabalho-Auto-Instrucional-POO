@@ -26,10 +26,11 @@ public class MenuBatalha {
 		do {
 
 			int opcao;
-			System.out.println("Guerreiro esqueleto\nHP" + arrAndar[andar][0].getVida());
-			System.out.println("Guerreiro esqueleto \nHP" + arrAndar[andar][1].getVida());
-			System.out.println("Cavaleiro\nHP" + kg.getVida());
-			System.out.println("1-atacar 2-itens 3-satus");
+			System.out.println("Guerreiro esqueleto   Guerreiro esqueleto   Guerreiro esqueleto");
+			System.out.println("HP" + arrAndar[andar][0].getVida() + "			HP" +arrAndar[andar][1].getVida() + "			HP" +arrAndar[andar][2].getVida());
+//			System.out.println("Guerreiro esqueleto \nHP" + arrAndar[andar][1].getVida());
+			System.out.println("\nCavaleiro\nHP" + kg.getVida());
+			System.out.println("\n1-atacar 2-itens 3-satus");
 			opcao = leia.nextInt();
 			
 			switch (opcao) {
@@ -51,29 +52,46 @@ public class MenuBatalha {
 	
 	void batalha() {
 		int op;
+		System.out.println("=============================================================================================");
 		System.out.println("escolha um inimigo\n1-" + arrAndar[andar][0].getNome()+"\n2-" + arrAndar[andar][0].getNome());
 		op = leia.nextInt();
 		//checa se o ataque do heroi acertou, caso tenha acertado reduz a vida do inimigo;
 		if (ca.check() ==1) {
+			System.out.println("NAT cavaleiro " + ca.check());
 			System.out.println("errou");
 		} else if(ca.check()==2) {
+			System.out.println("NAT cavaleiro " +ca.check());
+			System.out.println("DANO TOTAL cavaleiro" + cd.calculoDano(kg.getAtk(), arrAndar[andar][op-1].getDef()));
 			arrAndar[andar][0].setVida(arrAndar[andar][op-1].getVida() - cd.calculoDano(kg.getAtk(), arrAndar[andar][op-1].getDef()));				
-		} else {
+		} else if(ca.check() == 3) {
+			System.out.println("NAT cavaleiro " +ca.check());
 			System.out.println("acerto critico");
+			System.out.println("DANO TOTAL cavaleiro" +cd.calculoDano(kg.getAtk()*2, arrAndar[andar][op-1].getDef()));
 			arrAndar[andar][0].setVida(arrAndar[andar][op-1].getVida() - cd.calculoDano(kg.getAtk()*2, arrAndar[andar][op-1].getDef()));
 		}
 		
 		//verificar se o inimigo morreu antes de executar uma ação
-		if (arrAndar[andar][0].getVida()>0) {
-		//verifica se o ataque inimigo acertou
-			if (ca.check() ==1) {
-				System.out.println(arrAndar[andar][0].getNome() + "errou");
-			} else if(ca.check()==2) {
-				kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][0].getAtk(), kg.getDef()));
+		for (int i = 0; i < arrAndar.length; i++) {
+			System.out.println(arrAndar.length);
+			if (arrAndar[andar][i].getVida()>0) {
+				//verifica se o ataque inimigo acertou
+				if (ca.check() == 1) {
+					System.out.println("NAT inimigo" +ca.check());
+					System.out.println(arrAndar[andar][i].getNome() + " errou");
+				} else if(ca.check()==2) {
+					System.out.println("NAT inimigo" +ca.check());
+					System.out.println("DANO TOTAL inimigo " + cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
+					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
+				} else if(ca.check()==3) {
+					System.out.println("NAT inimigo" +ca.check());
+					System.out.println("acerto critico inimigo");
+					System.out.println("DANO TOTALinimigo " + cd.calculoDano(arrAndar[andar][i].getAtk()*2, kg.getDef()));
+					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
+				}
 			} else {
-				System.out.println("acerto critico inimigo");
-				kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][0].getAtk(), kg.getDef()));
+				arrAndar[andar][i] = null;
 			}
+			
 		}
 	}
 }
