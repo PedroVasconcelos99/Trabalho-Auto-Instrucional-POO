@@ -31,12 +31,17 @@ public class MenuBatalha {
 			System.out.println("HP" + arrAndar[andar][0].getVida() + "			HP" +arrAndar[andar][1].getVida() + "			HP" +arrAndar[andar][2].getVida());
 			System.out.println("\nTOTAL" + totalVida());
 			System.out.println("\nCavaleiro\nHP" + kg.getVida());
-			System.out.println("\n1-atacar 2-itens 3-satus");
+			System.out.println("\n1-atacar 2-satus 3-especial");
 			opcao = leia.nextInt();
 			
 			switch (opcao) {
 			case 1: {
 				batalha();
+				break;
+			}
+			
+			case 2: {
+				System.out.println(kg.toString());
 				break;
 			}
 			
