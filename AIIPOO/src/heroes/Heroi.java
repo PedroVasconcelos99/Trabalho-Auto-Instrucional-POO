@@ -1,6 +1,7 @@
 package heroes;
 
-public class Heroi {	
+public class Heroi {
+	String nome;
 	protected int vida;
 	protected int atk;
 	protected int def;
@@ -31,6 +32,8 @@ public class Heroi {
 	public void setDef(int def) {
 		this.def = def;
 	}
+	
+	
 	
 	
 	
