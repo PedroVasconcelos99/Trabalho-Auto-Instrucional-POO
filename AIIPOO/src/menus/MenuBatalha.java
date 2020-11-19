@@ -61,15 +61,23 @@ public class MenuBatalha {
 		int op;
 		//imprime a escolha de inimigos para atacar
 		System.out.println("=============================================================================================");
-		System.out.println("escolha um inimigo\n1-" + arrAndar[andar][0].getNome()+"\n2-" + arrAndar[andar][0].getNome());
+		System.out.println("escolha um inimigo");
+		for (int i = 0; i < 3; i++) {
+			if (arrAndar[andar][i].getVida()>0) {
+				System.out.println(i+1 + "-" + arrAndar[andar][i].getNome());				
+			}
+		}
+		
 		op = leia.nextInt();
+		
+		
 		//checa se o ataque do heroi acertou, caso tenha acertado reduz a vida do inimigo;
-		if (ca.check() ==1) {
+		if (ca.check() <= 10) {
 			System.out.println("errou");
-		} else if(ca.check()==2) {
+		} else if(ca.check() <=19) {
 			System.out.println("DANO TOTAL cavaleiro" + cd.calculoDano(kg.getAtk(), arrAndar[andar][op-1].getDef()));
 			arrAndar[andar][0].setVida(arrAndar[andar][op-1].getVida() - cd.calculoDano(kg.getAtk(), arrAndar[andar][op-1].getDef()));				
-		} else if(ca.check() == 3) {
+		} else if(ca.check() == 20) {
 			System.out.println("acerto critico");
 			System.out.println("DANO TOTAL cavaleiro" +cd.calculoDano(kg.getAtk()*2, arrAndar[andar][op-1].getDef()));
 			arrAndar[andar][0].setVida(arrAndar[andar][op-1].getVida() - cd.calculoDano(kg.getAtk()*2, arrAndar[andar][op-1].getDef()));
