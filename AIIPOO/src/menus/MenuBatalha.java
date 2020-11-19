@@ -26,6 +26,7 @@ public class MenuBatalha {
 		do {
 
 			int opcao;
+			int cooldown = 0;
 			System.out.println("=============================================================================================");
 			System.out.println("Guerreiro esqueleto    Guerreiro esqueleto    Guerreiro esqueleto");
 			System.out.println("HP" + arrAndar[andar][0].getVida() + "			HP" +arrAndar[andar][1].getVida() + "			HP" +arrAndar[andar][2].getVida());
@@ -44,12 +45,35 @@ public class MenuBatalha {
 				System.out.println(kg.toString());
 				break;
 			}
+			case 3: {
+				int op;
+				System.out.println("escolha o heroi");
+				/*
+				 * for (int i = 0; i < 4; i++) { 
+				 * 	if(cooldown>0) {
+				 * 	//imprimir array de seleção dos herois
+				 * }
+				 * }
+				 */
+				op = leia.nextInt();
+				switch (op) {
+				case 1: {
+					kg.especial(cooldown);
+					cooldown = 5;
+					break;
+				}
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + op);
+				}
+				
+				break;
+			}
 			
 			default:
 				throw new IllegalArgumentException("valor invalido: " + opcao);
 			}
-		
-		
+			cooldown--;
+			
 		
 		} while (totalVida() != 0|| kg.getVida() == 0);
 		
@@ -106,5 +130,6 @@ public class MenuBatalha {
 			}
 			
 		}
+		
 	}
 }
