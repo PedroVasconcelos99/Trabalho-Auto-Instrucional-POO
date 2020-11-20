@@ -33,7 +33,7 @@ public class Heroi {
 		this.def = def;
 	}
 	
-	
+	public void especial() {};
 	
 	
 	
