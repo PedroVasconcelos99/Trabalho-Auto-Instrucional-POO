@@ -128,17 +128,24 @@ public class MenuBatalha {
 		System.out.println("=============================================================================================");
 		
 		do {
-			System.out.println("escolha quem irá atacar");
-			for (int i = 0; i < arrHerois.length; i++) {
-				if (arrHerois[i].getVida()>0) {
-					System.out.println(i+1 + "-" + arrHerois[i].getNome());				
+			do {
+				
+				System.out.println("escolha quem irá atacar");
+				for (int i = 0; i < arrHerois.length; i++) {
+					if (arrHerois[i].getVida()>0) {
+						System.out.println(i+1 + "-" + arrHerois[i].getNome());				
+					}
 				}
-			}
-			opHeroi = leia.nextInt();
-			if (arrHerois[opHeroi+1].getVida()<0) {
+				opHeroi = leia.nextInt();
+				
+				if (opHeroi < 0 || opHeroi>2) {
+					System.out.println("opção invalida");
+				}
+			} while (opHeroi < 0 || opHeroi>2);
+			if (arrHerois[opHeroi-1].getVida()<0) {
 				System.out.println("heroi incapacitado");
 			}
-		} while (arrHerois[opHeroi+1].getVida()<0);
+		} while (arrHerois[opHeroi-1].getVida()<0);
 		
 		
 		
@@ -168,6 +175,8 @@ public class MenuBatalha {
 			System.out.println("DANO TOTAL cavaleiro" +cd.calculoDano(arrHerois[opHeroi-1].getAtk()*2, arrAndar[andar][opInimigo-1].getDef()));
 			arrAndar[andar][0].setVida(arrAndar[andar][opInimigo-1].getVida() - cd.calculoDano(arrHerois[opHeroi-1].getAtk()*2, arrAndar[andar][opInimigo-1].getDef()));
 		}
+		
+		
 		
 		//verificar se o inimigo morreu antes de executar uma ação
 		for (int i = 0; i < 3; i++) {
