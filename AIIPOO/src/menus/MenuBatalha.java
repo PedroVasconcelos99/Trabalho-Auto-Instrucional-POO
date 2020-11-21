@@ -22,8 +22,8 @@ public class MenuBatalha {
 	Paladino pl = new Paladino();
 	Mago mg = new Mago();
 	CalcularDano cd = new CalcularDano();
-	ChecarAcerto ca = new ChecarAcerto();
-	
+	GeradorAleatorio ca = new GeradorAleatorio();
+	int alvo = ca.alvoAleatorio();
 	int andar =0;
 	
 //	vetores com os inimigos para cada andar
@@ -34,7 +34,6 @@ public class MenuBatalha {
 	public void menuBatalha() {
 		int cooldown = 0;
 		do {
-
 			int opcao;
 			System.out.println("=============================================================================================");
 			System.out.println("Guerreiro esqueleto    Guerreiro esqueleto    Guerreiro esqueleto");
@@ -44,6 +43,8 @@ public class MenuBatalha {
 				System.out.print("\n" + arrHerois[i].getNome() +"\nHP" + arrHerois[i].getVida());
 				
 			}
+			
+			
 			System.out.println("\n1-atacar 2-satus 3-especial");
 			opcao = leia.nextInt();
 			
@@ -123,7 +124,7 @@ public class MenuBatalha {
 		
 		System.out.println("escolha quem irá atacar");
 		for (int i = 0; i < arrHerois.length; i++) {
-			if (arrAndar[andar][i].getVida()>0) {
+			if (arrHerois[i].getVida()>0) {
 				System.out.println(i+1 + "-" + arrHerois[i].getNome());				
 			}
 		}
@@ -159,12 +160,12 @@ public class MenuBatalha {
 					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " errou");
 				} else if(ca.check() <= 19) {
 					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " acertou");
-					System.out.println("DANO TOTAL inimigo " + cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
-					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
+					System.out.println("DANO TOTAL inimigo " + cd.calculoDano(arrAndar[andar][i].getAtk(), arrHerois[alvo].getDef()));
+					arrHerois[alvo].setVida(arrHerois[alvo].getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), arrHerois[alvo].getDef()));
 				} else if(ca.check() == 20) {
 					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " acerto critico ");
-					System.out.println("DANO TOTALinimigo " + cd.calculoDano(arrAndar[andar][i].getAtk()*2, kg.getDef()));
-					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
+					System.out.println("DANO TOTALinimigo " + cd.calculoDano(arrAndar[andar][i].getAtk()*2, arrHerois[alvo].getDef()));
+					arrHerois[alvo].setVida(arrHerois[alvo].getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), arrHerois[alvo].getDef()));
 				}
 			}
 			
