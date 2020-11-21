@@ -67,16 +67,20 @@ public class MenuBatalha {
 				int op;
 				System.out.println("escolha o heroi");
 				
-				  for (int i = 0; i < 4; i++) { 
-				  	if(cooldown>0) {
+				  for (int i = 0; i < arrHerois.length; i++) { 
 //				  	imprimir array de seleção dos herois
-				  	}
+					System.out.println(arrHerois[i]);
 				  }
 				 
 				op = leia.nextInt();
 				switch (op) {
 				case 1: {
 					kg.especial(cooldown);
+					cooldown = 5;
+					break;
+				}
+				case 2: {
+					pl.especial(kg,mg);
 					cooldown = 5;
 					break;
 				}
@@ -176,7 +180,10 @@ public class MenuBatalha {
 			arrAndar[andar][0].setVida(arrAndar[andar][opInimigo-1].getVida() - cd.calculoDano(arrHerois[opHeroi-1].getAtk()*2, arrAndar[andar][opInimigo-1].getDef()));
 		}
 		
-		
+//		Impede que a vida dos inimigos fique negativa
+		if (arrAndar[andar][opInimigo-1].getVida()<0) {
+			arrAndar[andar][opInimigo-1].setVida(0);
+		}
 		
 		//verificar se o inimigo morreu antes de executar uma ação
 		for (int i = 0; i < 3; i++) {
@@ -194,7 +201,10 @@ public class MenuBatalha {
 					arrHerois[alvo].setVida(arrHerois[alvo].getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), arrHerois[alvo].getDef()));
 				}
 			}
-			
+//			Impede que a vida dos herois fique negativa
+			if (arrHerois[i].getVida()<0) {
+				arrHerois[i].setVida(0);
+			}
 		}
 		
 	}
