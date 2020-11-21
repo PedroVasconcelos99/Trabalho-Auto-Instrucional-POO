@@ -11,27 +11,39 @@ public class MenuBatalha {
 	GuerreiroEsqueleto ge1 = new GuerreiroEsqueleto();
 	GuerreiroEsqueleto ge2 = new GuerreiroEsqueleto();
 	GuerreiroEsqueleto ge3 = new GuerreiroEsqueleto();
+	GuerreiroEsqueleto ge4 = new GuerreiroEsqueleto();
+	GuerreiroEsqueleto ge5 = new GuerreiroEsqueleto();
+	Orc o1 = new Orc();
+	Orc o2 = new Orc();
+	Feiticeiro f1 = new Feiticeiro();
+	Feiticeiro f2 = new Feiticeiro();
+	Boss b1 = new Boss();
 	Cavaleiro kg = new Cavaleiro();
+	Paladino pl = new Paladino();
+	Mago mg = new Mago();
 	CalcularDano cd = new CalcularDano();
 	ChecarAcerto ca = new ChecarAcerto();
 	
 	int andar =0;
 	
 //	vetores com os inimigos para cada andar
-//	Inimigos arrInimigos[] = {ge1,ge2,ge3};
-	Inimigos arrAndar[][] = {{ge1,ge2,ge3}};
+	Inimigos arrAndar[][] = {{ge1,ge2,ge3},{o1,o2,f1},{f2,ge4,ge5},{b1}};
+	Heroi arrHerois[] = {kg,pl,mg};
 	
 
 	public void menuBatalha() {
+		int cooldown = 0;
 		do {
 
 			int opcao;
-			int cooldown = 0;
 			System.out.println("=============================================================================================");
 			System.out.println("Guerreiro esqueleto    Guerreiro esqueleto    Guerreiro esqueleto");
 			System.out.println("HP" + arrAndar[andar][0].getVida() + "			HP" +arrAndar[andar][1].getVida() + "			HP" +arrAndar[andar][2].getVida());
-			System.out.println("\nTOTAL" + totalVida());
-			System.out.println("\nCavaleiro\nHP" + kg.getVida());
+			System.out.println("\nTOTAL" + totalVidaInimigos());
+			for (int i = 0; i < arrHerois.length; i++) {
+				System.out.print("\n" + arrHerois[i].getNome() +"\nHP" + arrHerois[i].getVida());
+				
+			}
 			System.out.println("\n1-atacar 2-satus 3-especial");
 			opcao = leia.nextInt();
 			
@@ -48,13 +60,13 @@ public class MenuBatalha {
 			case 3: {
 				int op;
 				System.out.println("escolha o heroi");
-				/*
-				 * for (int i = 0; i < 4; i++) { 
-				 * 	if(cooldown>0) {
-				 * 	//imprimir array de seleção dos herois
-				 * }
-				 * }
-				 */
+				
+				  for (int i = 0; i < 4; i++) { 
+				  	if(cooldown>0) {
+//				  	imprimir array de seleção dos herois
+				  	}
+				  }
+				 
 				op = leia.nextInt();
 				switch (op) {
 				case 1: {
@@ -72,24 +84,51 @@ public class MenuBatalha {
 			default:
 				throw new IllegalArgumentException("valor invalido: " + opcao);
 			}
-			cooldown--;
+			if (cooldown > 0) {
+				cooldown--;				
+			}
 			
 		
-		} while (totalVida() != 0|| kg.getVida() == 0);
+		} while (totalVidaInimigos() != 0|| totalVidaHerois()== 0);
+		if(totalVidaInimigos() == 0) {
+			andar++;
+		}
+		if(totalVidaHerois()== 0) {
+			System.out.println("GAME OVER");
+		}
+		
+		
 		
 	}
-	int totalVida(){ 
+	int totalVidaInimigos(){ 
 		int total = 0;
 		for (int i = 0; i < 3; i++) {
 			total += arrAndar[andar][i].getVida();
 		}
 		return total;
 	}
+	int totalVidaHerois(){ 
+		int total = 0;
+		for (int i = 0; i < arrHerois.length; i++) {
+			total += arrHerois[i].getVida();
+		}
+		return total;
+	}
 	
 	void batalha() {
-		int op;
+		int opInimigo;
+		int opHeroi;
 		//imprime a escolha de inimigos para atacar
 		System.out.println("=============================================================================================");
+		
+		System.out.println("escolha quem irá atacar");
+		for (int i = 0; i < arrHerois.length; i++) {
+			if (arrAndar[andar][i].getVida()>0) {
+				System.out.println(i+1 + "-" + arrHerois[i].getNome());				
+			}
+		}
+		
+		opHeroi = leia.nextInt();
 		System.out.println("escolha um inimigo");
 		for (int i = 0; i < 3; i++) {
 			if (arrAndar[andar][i].getVida()>0) {
@@ -97,32 +136,32 @@ public class MenuBatalha {
 			}
 		}
 		
-		op = leia.nextInt();
+		opInimigo = leia.nextInt();
 		
 		
 		//checa se o ataque do heroi acertou, caso tenha acertado reduz a vida do inimigo;
 		if (ca.check() <= 10) {
 			System.out.println("errou");
 		} else if(ca.check() <=19) {
-			System.out.println("DANO TOTAL cavaleiro" + cd.calculoDano(kg.getAtk(), arrAndar[andar][op-1].getDef()));
-			arrAndar[andar][0].setVida(arrAndar[andar][op-1].getVida() - cd.calculoDano(kg.getAtk(), arrAndar[andar][op-1].getDef()));				
+			System.out.println("DANO TOTAL cavaleiro" + cd.calculoDano(arrHerois[opHeroi-1].getAtk(), arrAndar[andar][opInimigo-1].getDef()));
+			arrAndar[andar][0].setVida(arrAndar[andar][opInimigo-1].getVida() - cd.calculoDano(arrHerois[opHeroi-1].getAtk(), arrAndar[andar][opInimigo-1].getDef()));				
 		} else if(ca.check() == 20) {
 			System.out.println("acerto critico");
-			System.out.println("DANO TOTAL cavaleiro" +cd.calculoDano(kg.getAtk()*2, arrAndar[andar][op-1].getDef()));
-			arrAndar[andar][0].setVida(arrAndar[andar][op-1].getVida() - cd.calculoDano(kg.getAtk()*2, arrAndar[andar][op-1].getDef()));
+			System.out.println("DANO TOTAL cavaleiro" +cd.calculoDano(arrHerois[opHeroi-1].getAtk()*2, arrAndar[andar][opInimigo-1].getDef()));
+			arrAndar[andar][0].setVida(arrAndar[andar][opInimigo-1].getVida() - cd.calculoDano(arrHerois[opHeroi-1].getAtk()*2, arrAndar[andar][opInimigo-1].getDef()));
 		}
 		
 		//verificar se o inimigo morreu antes de executar uma ação
 		for (int i = 0; i < 3; i++) {
 			if (arrAndar[andar][i].getVida()>0) {
 				//verifica se o ataque inimigo acertou
-				if (ca.check() == 1) {
+				if (ca.check() <= 10) {
 					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " errou");
-				} else if(ca.check()==2) {
+				} else if(ca.check() <= 19) {
 					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " acertou");
 					System.out.println("DANO TOTAL inimigo " + cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
 					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
-				} else if(ca.check()==3) {
+				} else if(ca.check() == 20) {
 					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " acerto critico ");
 					System.out.println("DANO TOTALinimigo " + cd.calculoDano(arrAndar[andar][i].getAtk()*2, kg.getDef()));
 					kg.setVida(kg.getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), kg.getDef()));
