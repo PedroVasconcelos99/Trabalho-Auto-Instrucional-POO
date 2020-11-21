@@ -44,9 +44,14 @@ public class MenuBatalha {
 				
 			}
 			
-			
-			System.out.println("\n1-atacar 2-satus 3-especial");
-			opcao = leia.nextInt();
+			do {
+				
+				System.out.println("\n1-atacar 2-satus 3-especial");
+				opcao = leia.nextInt();
+				if (opcao < 0 || opcao > 3) {
+					System.out.println("opção invalida");
+				}
+			} while (opcao < 0 || opcao > 3);
 			
 			switch (opcao) {
 			case 1: {
@@ -122,22 +127,34 @@ public class MenuBatalha {
 		//imprime a escolha de inimigos para atacar
 		System.out.println("=============================================================================================");
 		
-		System.out.println("escolha quem irá atacar");
-		for (int i = 0; i < arrHerois.length; i++) {
-			if (arrHerois[i].getVida()>0) {
-				System.out.println(i+1 + "-" + arrHerois[i].getNome());				
+		do {
+			System.out.println("escolha quem irá atacar");
+			for (int i = 0; i < arrHerois.length; i++) {
+				if (arrHerois[i].getVida()>0) {
+					System.out.println(i+1 + "-" + arrHerois[i].getNome());				
+				}
 			}
-		}
-		
-		opHeroi = leia.nextInt();
-		System.out.println("escolha um inimigo");
-		for (int i = 0; i < 3; i++) {
-			if (arrAndar[andar][i].getVida()>0) {
-				System.out.println(i+1 + "-" + arrAndar[andar][i].getNome());				
+			opHeroi = leia.nextInt();
+			if (arrHerois[opHeroi+1].getVida()<0) {
+				System.out.println("heroi incapacitado");
 			}
-		}
+		} while (arrHerois[opHeroi+1].getVida()<0);
 		
-		opInimigo = leia.nextInt();
+		
+		
+		do {
+			System.out.println("escolha um inimigo");
+			for (int i = 0; i < 3; i++) {
+				if (arrAndar[andar][i].getVida()>0) {
+					System.out.println(i+1 + "-" + arrAndar[andar][i].getNome());				
+				}
+			}
+				
+			opInimigo = leia.nextInt();
+			if (arrAndar[andar][opInimigo].getVida()<0) {
+				System.out.println("inimigo não existe");
+			}
+		} while (arrAndar[andar][opInimigo].getVida()<0);
 		
 		
 		//checa se o ataque do heroi acertou, caso tenha acertado reduz a vida do inimigo;
