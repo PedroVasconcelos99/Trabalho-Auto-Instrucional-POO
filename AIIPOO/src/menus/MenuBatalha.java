@@ -68,20 +68,33 @@ public class MenuBatalha {
 				System.out.println("escolha o heroi");
 				
 				  for (int i = 0; i < arrHerois.length; i++) { 
-//				  	imprimir array de seleção dos herois
-					System.out.println(arrHerois[i]);
+					  //imprimir array de seleção dos herois
+					  if (arrHerois[i].getCooldown()>0) {
+						  System.out.println(i + "-" + arrHerois[i]);						
+					}
 				  }
 				 
 				op = leia.nextInt();
 				switch (op) {
 				case 1: {
-					kg.especial(cooldown);
-					cooldown = 5;
+					if (kg.getCooldown() == 0) {
+						kg.especial();						
+					}
+					kg.setCooldown(5);
 					break;
 				}
 				case 2: {
-					pl.especial(kg,mg);
-					cooldown = 5;
+					if (pl.getCooldown() == 0) {
+						pl.especial(kg,mg);						
+					}
+					pl.setCooldown(4);
+					break;
+				}
+				case 3: {
+					if (mg.getCooldown() == 0) {
+						mg.especial(kg,pl);						
+					}
+					mg.setCooldown(6);
 					break;
 				}
 				default:
@@ -142,10 +155,10 @@ public class MenuBatalha {
 				}
 				opHeroi = leia.nextInt();
 				
-				if (opHeroi < 0 || opHeroi>2) {
+				if (opHeroi < 1 || opHeroi>3) {
 					System.out.println("opção invalida");
 				}
-			} while (opHeroi < 0 || opHeroi>2);
+			} while (opHeroi < 1 || opHeroi>3);
 			if (arrHerois[opHeroi-1].getVida()<0) {
 				System.out.println("heroi incapacitado");
 			}
@@ -162,10 +175,10 @@ public class MenuBatalha {
 			}
 				
 			opInimigo = leia.nextInt();
-			if (arrAndar[andar][opInimigo].getVida()<0) {
+			if (arrAndar[andar][opInimigo-1].getVida()<0) {
 				System.out.println("inimigo não existe");
 			}
-		} while (arrAndar[andar][opInimigo].getVida()<0);
+		} while (arrAndar[andar][opInimigo-1].getVida()<0);
 		
 		
 		//checa se o ataque do heroi acertou, caso tenha acertado reduz a vida do inimigo;
@@ -206,6 +219,13 @@ public class MenuBatalha {
 				arrHerois[i].setVida(0);
 			}
 		}
+		//reduz o valor do cooldown de um Heroi que esteja com o cooldown maior que 0
+		for (int i = 0; i < arrHerois.length; i++) {
+			if (arrHerois[i].getCooldown()>0) {
+				arrHerois[i].setCooldown(arrHerois[i].getVida()-1);
+			}
+		}
+		
 		
 	}
 }
