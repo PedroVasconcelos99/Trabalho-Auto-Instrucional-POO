@@ -60,55 +60,18 @@ public class MenuBatalha {
 			}
 			
 			case 2: {
-				System.out.println(kg.toString());
+				for (int i = 0; i < arrHerois.length; i++) {
+					System.out.println(arrHerois[i].toString());
+				}
 				break;
 			}
 			case 3: {
-				int op;
-				System.out.println("escolha o heroi");
-				
-				  for (int i = 0; i < arrHerois.length; i++) { 
-					  //imprimir array de seleção dos herois
-					  if (arrHerois[i].getCooldown()>0) {
-						  System.out.println(i + "-" + arrHerois[i]);						
-					}
-				  }
-				 
-				op = leia.nextInt();
-				switch (op) {
-				case 1: {
-					if (kg.getCooldown() == 0) {
-						kg.especial();						
-					}
-					kg.setCooldown(5);
-					break;
-				}
-				case 2: {
-					if (pl.getCooldown() == 0) {
-						pl.especial(kg,mg);						
-					}
-					pl.setCooldown(4);
-					break;
-				}
-				case 3: {
-					if (mg.getCooldown() == 0) {
-						mg.especial(kg,pl);						
-					}
-					mg.setCooldown(6);
-					break;
-				}
-				default:
-					throw new IllegalArgumentException("Unexpected value: " + op);
-				}
-				
+				habilidadeEspecial();
 				break;
 			}
 			
 			default:
 				throw new IllegalArgumentException("valor invalido: " + opcao);
-			}
-			if (cooldown > 0) {
-				cooldown--;				
 			}
 			
 		
@@ -119,7 +82,9 @@ public class MenuBatalha {
 		if(totalVidaHerois()== 0) {
 			System.out.println("GAME OVER");
 		}
-		
+		if (andar == 5) {
+			System.out.println("PAREBENS");
+		}
 		
 		
 	}
@@ -137,6 +102,53 @@ public class MenuBatalha {
 		}
 		return total;
 	}
+	
+	
+	void habilidadeEspecial() {
+		int op;
+		do {
+				
+			System.out.println("escolha o heroi");
+			
+			  for (int i = 0; i < arrHerois.length; i++) { 
+				  //imprimir array de seleção dos herois
+				  if (arrHerois[i].getCooldown() == 0) {
+					  System.out.println(i+1 + "-" + arrHerois[i].getNome());						
+				}
+			  }
+			 
+			op = leia.nextInt();
+			if (op<1 || op >3) {
+				System.out.println("opção invalida");
+			}		
+		} while (op<1 || op >3);
+		switch (op) {
+		case 1: {
+			if (kg.getCooldown() == 0) {
+				kg.especial();						
+			}
+			kg.setCooldown(5);
+			break;
+		}
+		case 2: {
+			if (pl.getCooldown() == 0) {
+				pl.especial(kg,mg);						
+			}
+			pl.setCooldown(4);
+			break;
+		}
+		case 3: {
+			if (mg.getCooldown() == 0) {
+				mg.especial(kg,pl);						
+			}
+			mg.setCooldown(6);
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + op);
+		}
+	}
+	
 	
 	void batalha() {
 		int opInimigo;
