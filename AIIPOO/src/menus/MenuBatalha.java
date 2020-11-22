@@ -77,6 +77,7 @@ public class MenuBatalha {
 		
 		} while (totalVidaInimigos() != 0|| totalVidaHerois()== 0);
 		if(totalVidaInimigos() == 0) {
+			System.out.println("Passou de fase");
 			andar++;
 		}
 		if(totalVidaHerois()== 0) {
@@ -180,7 +181,7 @@ public class MenuBatalha {
 		
 		do {
 			System.out.println("escolha um inimigo");
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < arrAndar[andar].length; i++) {
 				if (arrAndar[andar][i].getVida()>0) {
 					System.out.println(i+1 + "-" + arrAndar[andar][i].getNome());				
 				}
@@ -211,7 +212,7 @@ public class MenuBatalha {
 		}
 		
 		//verificar se o inimigo morreu antes de executar uma ação
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < arrAndar[andar].length; i++) {
 			if (arrAndar[andar][i].getVida()>0) {
 				//verifica se o ataque inimigo acertou
 				if (ca.check() <= 10) {
