@@ -4,8 +4,8 @@ public class GuerreiroEsqueleto extends Inimigos{
 	
 	public GuerreiroEsqueleto() {
 		nome = "Skeleton-Warrior";
-		vida = 200;
-		atk = 20;
+		vida = 100;
+		atk = 30;
 		def = 5;
 	}
 	

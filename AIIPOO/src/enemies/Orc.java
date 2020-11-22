@@ -3,8 +3,8 @@ package enemies;
 public class Orc extends Inimigos{
 	public Orc() {
 		nome = "Orc";
-		atk = 30;
+		atk = 35;
 		def = 15;
-		vida = 150;
+		vida = 200;
 	}
 }

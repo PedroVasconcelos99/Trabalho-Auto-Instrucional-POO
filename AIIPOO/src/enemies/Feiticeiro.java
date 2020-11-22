@@ -3,7 +3,7 @@ package enemies;
 public class Feiticeiro extends Inimigos{
 	public Feiticeiro() {
 		nome = "Feiticeiro";
-		atk = 30;
+		atk = 35;
 		def = 10;
 		vida = 100;
 	}
