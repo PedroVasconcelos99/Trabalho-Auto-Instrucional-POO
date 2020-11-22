@@ -24,7 +24,7 @@ public class MenuBatalha {
 	CalcularDano cd = new CalcularDano();
 	GeradorAleatorio ca = new GeradorAleatorio();
 	int alvo = ca.alvoAleatorio();
-	int andar =0;
+	int andar = 0;
 	
 //	vetores com os inimigos para cada andar
 	Inimigos arrAndar[][] = {{ge1,ge2,ge3},{o1,o2,f1},{f2,ge4,ge5},{b1}};
@@ -33,16 +33,20 @@ public class MenuBatalha {
 
 	public void menuBatalha() {
 		int cooldown = 0;
+		System.out.println(andar + 1 + " andar");
 		do {
 			int opcao;
+			
 			System.out.println("=============================================================================================");
-			System.out.println("Guerreiro esqueleto    Guerreiro esqueleto    Guerreiro esqueleto");
-			System.out.println("HP" + arrAndar[andar][0].getVida() + "			HP" +arrAndar[andar][1].getVida() + "			HP" +arrAndar[andar][2].getVida());
-			System.out.println("\nTOTAL" + totalVidaInimigos());
-			for (int i = 0; i < arrHerois.length; i++) {
-				System.out.print("\n" + arrHerois[i].getNome() +"\nHP" + arrHerois[i].getVida());
-				
+			for (int i = 0; i < arrAndar[andar].length; i++) {
+				System.out.println(arrAndar[andar][i].getNome() + " HP: " +arrAndar[andar][i].getVida());
+				System.out.println(arrAndar[andar].length);
 			}
+			
+			for (int i = 0; i < arrHerois.length; i++) {
+				System.out.print("\n" + arrHerois[i].getNome() +" HP: " + arrHerois[i].getVida());
+			}
+			System.out.println("\n=============================================================================================");
 			
 			do {
 				
@@ -75,7 +79,7 @@ public class MenuBatalha {
 			}
 			
 		
-		} while (totalVidaInimigos() != 0|| totalVidaHerois()== 0);
+		} while (totalVidaInimigos() != 0|| totalVidaHerois() == 0);
 		if(totalVidaInimigos() == 0) {
 			System.out.println("Passou de fase");
 			andar++;
@@ -83,7 +87,7 @@ public class MenuBatalha {
 		if(totalVidaHerois()== 0) {
 			System.out.println("GAME OVER");
 		}
-		if (andar == 5) {
+		if (andar == 3) {
 			System.out.println("PAREBENS");
 		}
 		
@@ -91,7 +95,7 @@ public class MenuBatalha {
 	}
 	int totalVidaInimigos(){ 
 		int total = 0;
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < arrAndar[andar].length; i++) {
 			total += arrAndar[andar][i].getVida();
 		}
 		return total;
@@ -108,9 +112,10 @@ public class MenuBatalha {
 	void habilidadeEspecial() {
 		int op;
 		do {
-				
+			System.out.println("Cavaleiro encanta sua espada causando o dobro do dano ao atacar");
+			System.out.println("Paladino recebe a benção da luz e cura seus aliados");
+			System.out.println("Mago cria uma energia em volta que proteje seus aliados");
 			System.out.println("escolha o heroi");
-			
 			  for (int i = 0; i < arrHerois.length; i++) { 
 				  //imprimir array de seleção dos herois
 				  if (arrHerois[i].getCooldown() == 0) {
@@ -196,11 +201,11 @@ public class MenuBatalha {
 		
 		//checa se o ataque do heroi acertou, caso tenha acertado reduz a vida do inimigo;
 		if (ca.check() <= 10) {
-			System.out.println("errou");
+			System.out.println(arrHerois[opHeroi-1].getNome()  + "errou");
 		} else if(ca.check() <=19) {
-			System.out.println("DANO TOTAL cavaleiro" + cd.calculoDano(arrHerois[opHeroi-1].getAtk(), arrAndar[andar][opInimigo-1].getDef()));
+			System.out.println(arrHerois[opHeroi-1].getNome() + " acertou " + cd.calculoDano(arrHerois[opHeroi-1].getAtk(), arrAndar[andar][opInimigo-1].getDef()) + " de dano");
 			arrAndar[andar][0].setVida(arrAndar[andar][opInimigo-1].getVida() - cd.calculoDano(arrHerois[opHeroi-1].getAtk(), arrAndar[andar][opInimigo-1].getDef()));				
-		} else if(ca.check() == 20) {
+		} else if(ca.check() >= 20) {
 			System.out.println("acerto critico");
 			System.out.println("DANO TOTAL cavaleiro" +cd.calculoDano(arrHerois[opHeroi-1].getAtk()*2, arrAndar[andar][opInimigo-1].getDef()));
 			arrAndar[andar][0].setVida(arrAndar[andar][opInimigo-1].getVida() - cd.calculoDano(arrHerois[opHeroi-1].getAtk()*2, arrAndar[andar][opInimigo-1].getDef()));
@@ -216,14 +221,16 @@ public class MenuBatalha {
 			if (arrAndar[andar][i].getVida()>0) {
 				//verifica se o ataque inimigo acertou
 				if (ca.check() <= 10) {
-					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " errou");
+					System.out.println(arrAndar[andar][i].getNome()  + " errou");
 				} else if(ca.check() <= 19) {
-					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " acertou");
-					System.out.println("DANO TOTAL inimigo " + cd.calculoDano(arrAndar[andar][i].getAtk(), arrHerois[alvo].getDef()));
+					System.out.println(arrAndar[andar][i].getNome() +   " acertou");
+					System.out.println(arrHerois[alvo].getNome() + " - "+ cd.calculoDano(arrAndar[andar][i].getAtk(), arrHerois[alvo].getDef()) + " de vida");
+					
+					
 					arrHerois[alvo].setVida(arrHerois[alvo].getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), arrHerois[alvo].getDef()));
-				} else if(ca.check() == 20) {
-					System.out.println(arrAndar[andar][i].getNome() + (i+1) + " acerto critico ");
-					System.out.println("DANO TOTALinimigo " + cd.calculoDano(arrAndar[andar][i].getAtk()*2, arrHerois[alvo].getDef()));
+				} else if(ca.check() >= 20) {
+					System.out.println(arrAndar[andar][i].getNome()   + " acerto critico ");
+					System.out.println(arrHerois[alvo].getNome() + " - "+ cd.calculoDano(arrAndar[andar][i].getAtk()*2, arrHerois[alvo].getDef()) + " de vida");
 					arrHerois[alvo].setVida(arrHerois[alvo].getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), arrHerois[alvo].getDef()));
 				}
 			}
