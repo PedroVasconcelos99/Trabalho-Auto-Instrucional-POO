@@ -11,9 +11,17 @@ public class MenuPrincipal {
 		System.out.println("1-começar\n2-sair");
 		opcao = leia.nextInt();
 		
-		if (opcao == 1) {
-			System.out.println("1° Andar");
-			mb.menuBatalha();
-		} 
+		do {
+	
+			if (opcao == 1) {
+				mb.menuBatalha();
+			} else if(opcao == 2) {
+				System.out.println("Jogo encerrado");
+				System.exit(0);
+			}
+			if (opcao <1 || opcao>2) {
+				System.out.println("opção invalida");
+			}
+		} while (opcao <1 || opcao>2);		
 	}
 }
