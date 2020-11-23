@@ -56,12 +56,12 @@ public class MenuBatalha {
 				try {
 					do {
 						
-						System.out.println("\n1-atacar 2-satus 3-especial");
+						System.out.println("\n1-atacar 2-satus 3-especial 4-sair");
 						opcao = leia.nextInt();
-						if (opcao < 0 || opcao > 3) {
+						if (opcao < 0 || opcao > 4) {
 							System.out.println("opção invalida");
 						}
-					} while (opcao < 0 || opcao > 3);
+					} while (opcao < 0 || opcao > 4);
 					
 					switch (opcao) {
 					case 1: {
@@ -77,6 +77,11 @@ public class MenuBatalha {
 					}
 					case 3: {
 						habilidadeEspecial();
+						break;
+					}
+					case 4: {
+						System.out.println("Jogo encerrado");
+						System.exit(0);
 						break;
 					}
 					
