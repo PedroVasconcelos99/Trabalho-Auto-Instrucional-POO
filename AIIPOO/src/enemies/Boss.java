@@ -3,8 +3,8 @@ package enemies;
 public class Boss extends Inimigos{
 	public Boss() {
 		nome = "Boss";
-		atk = 40;
-		def = 20;
+		atk = 35;
+		def = 10;
 		vida = 275;
 	}
 }
