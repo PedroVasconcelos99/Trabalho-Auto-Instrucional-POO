@@ -5,7 +5,10 @@ public class Heroi {
 	protected int vida;
 	protected int atk;
 	protected int def;
+	protected int cooldown;
 	
+	
+
 	public Heroi() {
 	}
 
@@ -33,6 +36,24 @@ public class Heroi {
 		this.def = def;
 	}
 	
+	
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	public int getCooldown() {
+		return cooldown;
+	}
+
+	public void setCooldown(int cooldown) {
+		this.cooldown = cooldown;
+	}
+
 	public void especial() {};
 	
 	

@@ -5,7 +5,14 @@ public class Mago extends Heroi {
 		nome = "Mago";
 		atk = 30;
 		def = 10;
-		vida = 100;
+		vida = 150;
+	}
+	
+	
+	public void especial(Cavaleiro cavaleiro, Paladino paladino) {
+		cavaleiro.setDef(cavaleiro.getDef() + 20);
+		paladino.setDef(paladino.getDef() + 20);
+		def = def + 20;
 	}
 	
 	public String toString() {
