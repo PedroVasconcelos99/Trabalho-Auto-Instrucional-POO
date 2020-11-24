@@ -2,18 +2,21 @@ package heroes;
 
 public class Cavaleiro extends Heroi{
 
-	public Cavaleiro(int atk, int def, int vida) {
-		super(atk, def, vida);
-		this.atk = atk;
-		this.def = def;
-		this.vida = vida;
+	public Cavaleiro() {
+		nome = "Cavaleiro";
+		vida = 300;
+		atk = 15;
+		def = 15;
+		cooldown = 0;
 	}
 	
-	public void ataques() {
-		normal(); 
+	public void especial() {
+		setAtk(getAtk()*2);							
 	}
 	
-	public void normal() {
-		
+	public String toString() {
+		return nome + "\nvida: " + vida + "\natk: " + atk + "\ndef: " + def;
 	}
+	
+	
 }

@@ -1,14 +1,15 @@
 package heroes;
 
-public class Heroi {	
+public class Heroi {
+	String nome;
 	protected int vida;
 	protected int atk;
 	protected int def;
+	protected int cooldown;
 	
-	public Heroi(int atk,int def, int vida) {
-		this.atk = atk;
-		this.def = def;
-		this.vida = vida;
+	
+
+	public Heroi() {
 	}
 
 	public int getVida() {
@@ -34,6 +35,26 @@ public class Heroi {
 	public void setDef(int def) {
 		this.def = def;
 	}
+	
+	
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	public int getCooldown() {
+		return cooldown;
+	}
+
+	public void setCooldown(int cooldown) {
+		this.cooldown = cooldown;
+	}
+
+	public void especial() {};
 	
 	
 	
