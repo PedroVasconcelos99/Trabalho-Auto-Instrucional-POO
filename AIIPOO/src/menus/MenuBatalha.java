@@ -96,6 +96,8 @@ public class MenuBatalha {
 				leia.nextLine();
 			} while (!valido);
 		} while (totalVidaInimigos() != 0|| totalVidaHerois() == 0);
+		
+		//mostra menssagens de game over ou se passou de fease
 		if(totalVidaInimigos() == 0) {
 			System.out.println("Passou de fase");
 			andar++;
@@ -104,9 +106,9 @@ public class MenuBatalha {
 			System.out.println("GAME OVER");
 			new MenuPrincipal();
 		}
-		if (andar == 3) {
-			System.out.println("os herois conseguem chaegar ao topo da torre e derrotar o vilão trazendo novamente a paz ao reino");
-			new MenuPrincipal();
+		if (andar == 4) {
+			System.out.println("Os herois conseguem chegar ao topo da torre e derrotar o vilão trazendo novamente a paz ao reino");
+			System.out.println("FIM");
 		}
 		
 		
@@ -128,7 +130,7 @@ int totalVidaHerois(){
 		return total;
 	}
 	
-	
+	//metodo para escolha de qual habilidade usar
 	void habilidadeEspecial() {
 		int op;
 		boolean valido;
@@ -185,7 +187,7 @@ int totalVidaHerois(){
 		} while (!valido);
 	}
 	
-	
+	//metodo para a esolha de quem ataca e impressão do resultado dos danos
 	void batalha() {
 		int opInimigo;
 		int opHeroi;
@@ -197,7 +199,7 @@ int totalVidaHerois(){
 			try {
 				do {
 					do {
-						
+						//impresão de esolha de heroi
 						System.out.println("escolha quem irá atacar");
 						for (int i = 0; i < arrHerois.length; i++) {
 							if (arrHerois[i].getVida()>0) {
@@ -217,7 +219,7 @@ int totalVidaHerois(){
 				} while (arrHerois[opHeroi-1].getVida()<0);
 		
 		
-		
+				//impressão de escolha de inimigos
 				do {
 					System.out.println("escolha um inimigo");
 					for (int i = 0; i < arrAndar[andar].length; i++) {
@@ -235,7 +237,7 @@ int totalVidaHerois(){
 		
 				//checa se o ataque do heroi acertou, caso tenha acertado reduz a vida do inimigo;
 				if (ca.check() <= 10) {
-					System.out.println(arrHerois[opHeroi-1].getNome()  + "errou");
+					System.out.println(arrHerois[opHeroi-1].getNome()  + " errou");
 				} else if(ca.check() <=19) {
 					System.out.println(arrHerois[opHeroi-1].getNome() + " acertou " + cd.calculoDano(arrHerois[opHeroi-1].getAtk(), arrAndar[andar][opInimigo-1].getDef()) + " de dano");
 					arrAndar[andar][0].setVida(arrAndar[andar][opInimigo-1].getVida() - cd.calculoDano(arrHerois[opHeroi-1].getAtk(), arrAndar[andar][opInimigo-1].getDef()));				
@@ -245,7 +247,7 @@ int totalVidaHerois(){
 					arrAndar[andar][0].setVida(arrAndar[andar][opInimigo-1].getVida() - cd.calculoDano(arrHerois[opHeroi-1].getAtk()*2, arrAndar[andar][opInimigo-1].getDef()));
 				}
 		
-		//		Impede que a vida dos inimigos fique negativa
+				//Impede que a vida dos inimigos fique negativa
 				if (arrAndar[andar][opInimigo-1].getVida()<0) {
 					arrAndar[andar][opInimigo-1].setVida(0);
 				}
@@ -268,7 +270,7 @@ int totalVidaHerois(){
 							arrHerois[alvo].setVida(arrHerois[alvo].getVida() - cd.calculoDano(arrAndar[andar][i].getAtk(), arrHerois[alvo].getDef()));
 						}
 					}
-		//			Impede que a vida dos herois fique negativa
+					//Impede que a vida dos herois fique negativa
 					if (arrHerois[i].getVida()<0) {
 						arrHerois[i].setVida(0);
 					}
@@ -276,14 +278,13 @@ int totalVidaHerois(){
 				//reduz o valor do cooldown de um Heroi que esteja com o cooldown maior que 0
 				for (int i = 0; i < arrHerois.length; i++) {
 					if (arrHerois[i].getCooldown()>0) {
-						arrHerois[i].setCooldown(arrHerois[i].getVida()-1);
+						arrHerois[i].setCooldown(arrHerois[i].getCooldown()-1);
 					}
 				}
 			} catch (Exception e) {
 				System.out.println("valor inválido digite apenas numeros");
 				valido = false;
 			}
-//			leia.nextLine();
 		} while (!valido);
 
 		
